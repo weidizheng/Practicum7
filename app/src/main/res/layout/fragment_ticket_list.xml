@@ -1,6 +1,5 @@
-<androidx.fragment.app.FragmentContainerView
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
-    android:name="com.example.practicum7.TicketListFragment"
+    android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
