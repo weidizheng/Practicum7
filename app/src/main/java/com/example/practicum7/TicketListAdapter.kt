@@ -1,74 +1,36 @@
 package com.example.practicum7
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.practicum7.databinding.ListItemTicketBinding
 
-class TicketListAdapter : ListAdapter<Ticket, RecyclerView.ViewHolder>(TicketDiffCallback()) {
+class TicketHolder(private val binding: ListItemTicketBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    companion object {
-        const val VIEW_TYPE_NORMAL = 1
-        const val VIEW_TYPE_MANAGER = 2
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (getItem(position).requiresManager) VIEW_TYPE_MANAGER else VIEW_TYPE_NORMAL
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == VIEW_TYPE_MANAGER) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_item_ticket_manager, parent, false)
-            ManagerViewHolder(view)
-        } else {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_item_ticket, parent, false)
-            TicketViewHolder(view)
-        }
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val ticket = getItem(position)
-        if (holder is TicketViewHolder) {
-            holder.bind(ticket)
-        } else if (holder is ManagerViewHolder) {
-            holder.bind(ticket)
-        }
-    }
-
-    class TicketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(ticket: Ticket) {
-            val titleView = itemView.findViewById<TextView>(R.id.ticketTitle)
-            val dateView = itemView.findViewById<TextView>(R.id.ticketDate)
-
-            titleView?.text = ticket.title
-            dateView?.text = ticket.date.toString()
-        }
-    }
-
-    class ManagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(ticket: Ticket) {
-            val titleView = itemView.findViewById<TextView>(R.id.ticketTitle)
-            val dateView = itemView.findViewById<TextView>(R.id.ticketDate)
-            titleView?.text = ticket.title
-            dateView?.text = ticket.date.toString()
-            val contactButton = itemView.findViewById<View>(R.id.contactManagerButton)
-            contactButton?.setOnClickListener {
-            }
+    fun bind(ticket: Ticket) {
+        binding.ticketTitle.text = ticket.title
+        binding.ticketDate.text = ticket.date.toString()
+        binding.root.setOnClickListener {
+            Toast.makeText(binding.root.context, "${ticket.title} clicked!", Toast.LENGTH_SHORT).show()
         }
     }
 }
 
-class TicketDiffCallback : DiffUtil.ItemCallback<Ticket>() {
-    override fun areItemsTheSame(oldItem: Ticket, newItem: Ticket): Boolean {
-        return oldItem.id == newItem.id
+class TicketListAdapter(private val tickets: List<Ticket>) : RecyclerView.Adapter<TicketHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ListItemTicketBinding.inflate(inflater, parent, false)
+        return TicketHolder(binding)
     }
 
-    override fun areContentsTheSame(oldItem: Ticket, newItem: Ticket): Boolean {
-        return oldItem == newItem
+    override fun getItemCount(): Int {
+        return tickets.size
+    }
+
+    override fun onBindViewHolder(holder: TicketHolder, position: Int) {
+        val ticket = tickets[position]
+        holder.bind(ticket)
     }
 }

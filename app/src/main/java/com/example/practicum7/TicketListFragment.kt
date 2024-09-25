@@ -5,32 +5,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.practicum7.databinding.FragmentTicketListBinding
 
 class TicketListFragment : Fragment() {
 
-    private lateinit var binding: FragmentTicketListBinding
-    private val viewModel: TicketViewModel by activityViewModels()
+    private var _binding: FragmentTicketListBinding? = null
+    private val binding get() = checkNotNull(_binding) { "Cannot access binding because it is null." }
+
+    private val ticketListViewModel: TicketListViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentTicketListBinding.inflate(inflater, container, false)
+        _binding = FragmentTicketListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = TicketListAdapter()
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val tickets = ticketListViewModel.tickets
+        val adapter = TicketListAdapter(tickets)
+        binding.ticketRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.ticketRecyclerView.adapter = adapter
+    }
 
-        viewModel.tickets.observe(viewLifecycleOwner, { tickets ->
-            adapter.submitList(tickets)
-        })
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
