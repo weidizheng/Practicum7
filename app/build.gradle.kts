@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -29,7 +29,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-        dataBinding = true
     }
 
     compileOptions {
@@ -43,21 +42,21 @@ android {
 }
 
 dependencies {
-    // Core Android libraries
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("com.google.android.material:material:1.8.0")
+    implementation("androidx.activity:activity-ktx:1.5.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
+    // Fragment KTX
     implementation("androidx.fragment:fragment-ktx:1.6.0")
 
     // Unit testing
-    testImplementation(libs.junit)
+    testImplementation("junit:junit:4.13.2")
 
     // Android testing
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // Fragment testing
     debugImplementation("androidx.fragment:fragment-testing:1.8.3")
