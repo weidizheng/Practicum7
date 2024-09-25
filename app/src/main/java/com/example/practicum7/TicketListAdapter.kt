@@ -42,15 +42,23 @@ class TicketListAdapter : ListAdapter<Ticket, RecyclerView.ViewHolder>(TicketDif
 
     class TicketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(ticket: Ticket) {
-            itemView.findViewById<TextView>(R.id.ticket_title).text = ticket.title
-            itemView.findViewById<TextView>(R.id.ticket_date).text = ticket.date.toString()
+            val titleView = itemView.findViewById<TextView>(R.id.ticketTitle)
+            val dateView = itemView.findViewById<TextView>(R.id.ticketDate)
+
+            titleView?.text = ticket.title
+            dateView?.text = ticket.date.toString()
         }
     }
 
     class ManagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(ticket: Ticket) {
-            itemView.findViewById<TextView>(R.id.ticket_title).text = ticket.title
-            itemView.findViewById<TextView>(R.id.ticket_date).text = ticket.date.toString()
+            val titleView = itemView.findViewById<TextView>(R.id.ticketTitle)
+            val dateView = itemView.findViewById<TextView>(R.id.ticketDate)
+            titleView?.text = ticket.title
+            dateView?.text = ticket.date.toString()
+            val contactButton = itemView.findViewById<View>(R.id.contactManagerButton)
+            contactButton?.setOnClickListener {
+            }
         }
     }
 }

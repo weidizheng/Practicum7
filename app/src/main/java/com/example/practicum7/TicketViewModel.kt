@@ -10,9 +10,9 @@ class TicketViewModel : ViewModel() {
 
     init {
         tickets.value = listOf(
-            Ticket(UUID.randomUUID(), "Fix login bug", Date(), false),
-            Ticket(UUID.randomUUID(), "Improve UI design", Date(), true),
-            Ticket(UUID.randomUUID(), "Add new feature", Date(), false)
+            Ticket(UUID.randomUUID(), "Fix login bug", Date(), false, requiresManager = false),
+            Ticket(UUID.randomUUID(), "Improve UI design", Date(), true, requiresManager = true),
+            Ticket(UUID.randomUUID(), "Add new feature", Date(), false, requiresManager = false)
         )
     }
 }
