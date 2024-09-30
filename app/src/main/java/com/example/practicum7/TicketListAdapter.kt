@@ -1,8 +1,9 @@
 package com.example.practicum7
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practicum7.databinding.ListItemTicketBinding
@@ -12,7 +13,10 @@ import com.example.practicum7.databinding.ListItemManagerTicketBinding
 class TicketHolder(private val binding: ListItemTicketBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(ticket: Ticket) {
         binding.ticketTitle.text = ticket.title
-        binding.ticketDate.text = ticket.date.toString()
+
+        // Format date to a readable string
+        val formattedDate = DateFormat.format("MMM dd, yyyy", ticket.date)
+        binding.ticketDate.text = formattedDate.toString()
 
         // Set visibility of solved icon
         binding.ticketSolved.visibility = if (ticket.isSolved) View.VISIBLE else View.GONE
@@ -35,10 +39,8 @@ class ManagerTicketHolder(private val binding: ListItemManagerTicketBinding) : R
     }
 }
 
-// Adapter to handle both normal and manager-required tickets
 class TicketListAdapter(private val tickets: List<Ticket>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    // Define view types
     companion object {
         private const val TYPE_NORMAL = 0
         private const val TYPE_MANAGER = 1
