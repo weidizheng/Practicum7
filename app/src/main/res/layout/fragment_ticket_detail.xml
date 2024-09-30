@@ -6,35 +6,33 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp">
 
+    <!-- Ticket Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        android:text="@string/ticket_title_label" />
+        android:text="Ticket Title"
+        android:textAppearance="?attr/textAppearanceHeadline5" />
 
+    <!-- Ticket Title Input -->
     <EditText
         android:id="@+id/ticket_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/ticket_title_hint"
+        android:hint="Enter ticket title"
         android:importantForAutofill="no"
         android:inputType="text" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline5"
-        android:text="@string/ticket_details_label" />
-
+    <!-- Ticket Date -->
     <Button
         android:id="@+id/ticket_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wed May 11 11:56 EST 2024" />
+        android:text="Select Date" />
 
+    <!-- Solved Checkbox -->
     <CheckBox
         android:id="@+id/ticket_solved"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ticket_solved_label" />
+        android:text="Solved" />
 </LinearLayout>
